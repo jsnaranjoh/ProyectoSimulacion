@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyecto;
 
 import java.util.ArrayList;
@@ -15,37 +11,33 @@ import java.util.ArrayList;
  */
 public class Cola {
 
-    private ArrayList<Componente> colaPiezas;
+    private ArrayList<Componente> colaComponentes;
 
     public Cola() {
-        colaPiezas = new ArrayList<>();
+        colaComponentes = new ArrayList<>();
     }
 
-    public void agregarComponenteCola(Componente componente) {
-        colaPiezas.add(componente);
+    public void agregarEnCola(Componente componente) {
+        colaComponentes.add(componente);
     }
     
-    public int cantidadComponentesCola(){
-        return colaPiezas.size();
+    public int cantidadEnCola(){
+        return colaComponentes.size();
     }
 
-    public Boolean estadoCola() { //True: hay componentes False: esta vacia
-        if (colaPiezas.isEmpty()) {
-            return false;
-        }else{
-            return true;
+    public boolean esColaVacia() {
+        return colaComponentes.isEmpty();
         }
-    }
     
     public void aumentarTiempoCola(){
-        for(int i=0;i<colaPiezas.size();i++){
-            colaPiezas.get(i).aumenteTiempoCola();
+        for(int i=0; i<colaComponentes.size(); i++){
+            colaComponentes.get(i).aumenteTiempoCola();
         }
     }
     
     public Componente tomarComponenteCola(){
-        Componente componente= colaPiezas.get(0);
-        colaPiezas.remove(0);
+        Componente componente = colaComponentes.get(0);
+        colaComponentes.remove(0);
         return componente;
     }
 }

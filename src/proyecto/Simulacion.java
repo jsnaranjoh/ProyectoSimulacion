@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyecto;
 
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class Simulacion {
     private int cantidadEnsambladoras ;
     private Horno horno;
     private Cola colaComponentes;
-    private Boolean conEnfriamiento;
+    private boolean conEnfriamiento;
     
     //Variables para mostrar
     private String salida="-";
@@ -124,7 +120,7 @@ public class Simulacion {
             }
 
             //Proceso de la cola
-            if (colaComponentes.estadoCola() == true) {
+            if (colaComponentes.esColaVacia() == false) {
                 colaComponentes.aumentarTiempoCola();
             }
 
@@ -144,8 +140,8 @@ public class Simulacion {
         salida+="\n"+"cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas();
         System.out.println("cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas());
         salida+="\n"+"cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas();
-        System.out.println("tamañoCola: " + colaComponentes.cantidadComponentesCola());
-        salida+="\n"+"tamañoCola: " + colaComponentes.cantidadComponentesCola();
+        System.out.println("tamañoCola: " + colaComponentes.cantidadEnCola());
+        salida+="\n"+"tamañoCola: " + colaComponentes.cantidadEnCola();
         System.out.println("tiempoInactivoHorno: " + horno.getTiempoInactividadHorno());
         salida+="\n"+"tiempoInactivoHorno: " + horno.getTiempoInactividadHorno();
 
@@ -206,9 +202,9 @@ public class Simulacion {
             }
 
             //Proceso de la cola
-            if (colaComponentes.estadoCola() == true) {
-                System.out.println("en cola: " + colaComponentes.cantidadComponentesCola());
-                salida+="\n"+"en cola: " + colaComponentes.cantidadComponentesCola();
+            if (colaComponentes.esColaVacia()== false) {
+                System.out.println("en cola: " + colaComponentes.cantidadEnCola());
+                salida+="\n"+"en cola: " + colaComponentes.cantidadEnCola();
                 colaComponentes.aumentarTiempoCola();
             }
 
@@ -233,8 +229,8 @@ public class Simulacion {
         salida+="\n"+"cantPiezasEnsambladas: "+totalPiezasEnsambladas;
         System.out.println("cantEnsambladorasBloqueadas: "+listaEnsambladorasBloqueadas.size());
         salida+="\n"+"cantEnsambladorasBloqueadas: "+listaEnsambladorasBloqueadas.size();
-        System.out.println("tamañoCola: " + colaComponentes.cantidadComponentesCola());
-        salida+="\n"+"tamañoCola: " + colaComponentes.cantidadComponentesCola();
+        System.out.println("tamañoCola: " + colaComponentes.cantidadEnCola());
+        salida+="\n"+"tamañoCola: " + colaComponentes.cantidadEnCola();
         System.out.println("tiempoInactivoHorno: " + horno.getTiempoInactividadHorno());
         salida+="\n"+"tiempoInactivoHorno: " + horno.getTiempoInactividadHorno();
 
@@ -256,7 +252,7 @@ public class Simulacion {
         if (horno.getEstadoHorno() == false) {
             eventoEntraHorno(componente);
         } else {
-            colaComponentes.agregarComponenteCola(componente);
+            colaComponentes.agregarEnCola(componente);
         }
     }
 
@@ -272,7 +268,7 @@ public class Simulacion {
         horno.aumentarCantidadPiezasHorneadas();
         listaComponentesHorneados.add(componenteHorneandose);
         //Hay Componentes en cola?
-        if (colaComponentes.estadoCola() == true) {
+        if (colaComponentes.esColaVacia() == false) {
             componenteAuxiliar = colaComponentes.tomarComponenteCola();
             horno.cambieEstadoHorno();
             eventoEntraHorno(componenteAuxiliar);
@@ -295,17 +291,16 @@ public class Simulacion {
 
     public void eventoEntraCola1(Componente componente) {
         //Espacio en cola
-        if (colaComponentes.cantidadComponentesCola() < 4) {
+        if (colaComponentes.cantidadEnCola() < 4) {
             //Horno Disponible?
             if (horno.getEstadoHorno() == false) {
                 eventoEntraHorno1(componente);
             } else {
-                colaComponentes.agregarComponenteCola(componente);
+                colaComponentes.agregarEnCola(componente);
             }
         } else {
             ensambladoraAuxiliar.cambieEstadoEnsambladora();
             listaComponentesEnsambladorasBloqueadas.add(componente);
-            System.out.println("bloquea ensambladora, estado: "+ensambladoraAuxiliar.getEstadoEnsambladora());
             salida+="\n"+"bloquea ensambladora, estado: "+ensambladoraAuxiliar.getEstadoEnsambladora();
             listaEnsambladorasBloqueadas.add(ensambladoraAuxiliar);
         }
@@ -323,7 +318,7 @@ public class Simulacion {
         horno.aumentarCantidadPiezasHorneadas();
         listaComponentesHorneados.add(componenteHorneandose);
         //Hay Componentes en cola?
-        if (colaComponentes.estadoCola() == true) {
+        if (colaComponentes.esColaVacia() == false) {
             componenteAuxiliar = colaComponentes.tomarComponenteCola();
             horno.cambieEstadoHorno();
             //Hay Ensambladoras Bloqueadas?
@@ -334,7 +329,7 @@ public class Simulacion {
                 salida+="\n"+"ensambladora Desbloqueada, estado: "+ensambladoraAuxiliar.getEstadoEnsambladora();
                 ensambladoraAuxiliar.setTiempoEnsamblaje(listaTiemposEnsamblajes.get(contadorEnsamblaje));
                 componenteAuxiliar1=listaComponentesEnsambladorasBloqueadas.get(0);
-                colaComponentes.agregarComponenteCola(componenteAuxiliar1);
+                colaComponentes.agregarEnCola(componenteAuxiliar);
                 listaComponentesEnsambladorasBloqueadas.remove(0);
                 contadorEnsamblaje++;
                 listaEnsambladorasBloqueadas.remove(0);

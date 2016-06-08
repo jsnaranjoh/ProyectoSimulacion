@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyecto;
 
 import java.util.ArrayList;
@@ -18,7 +14,7 @@ public class Horno {
     private int tiempoInactividadHorno = 0;
     private int tiempoCoccion = 0;
     private int tiempoEnfriamiento = 5;
-    private Boolean estadoHorno = false; //True: Cocinando False: Esperando
+    private boolean estadoHorno = false; //True: Cocinando False: Esperando
     private int cantidadPiezasHorneadas = 0;
     private ArrayList<Integer> listaTiemposHorneado = new ArrayList<>();
 
@@ -85,7 +81,7 @@ public class Horno {
         return tiempoInactividadHorno;
     }
 
-    public Double calcularTiempoPromedioHorneado() {
+    public double calcularTiempoPromedioHorneado() {
         int sumaTiempos = 0;
         for (int i = 0; i < listaTiemposHorneado.size(); i++) {
             sumaTiempos += listaTiemposHorneado.get(i);

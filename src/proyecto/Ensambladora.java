@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package proyecto;
 
 import java.util.ArrayList;
@@ -18,7 +14,7 @@ public class Ensambladora {
     private int numeroEnsambladora;
     private int tiempoEnsamblaje = 0;
     private int cantPiezasEnsambladas = 0;
-    private Boolean estadoEnsambladora = true; //True: ensamblando False: inactiva
+    private boolean estadoEnsambladora = true; //True: ensamblando False: inactiva
     private int tiempoInactividadEnsambladora = 0;
     private ArrayList<Integer> listaTiemposEnsamblaje = new ArrayList<>();
     private double promedioTiempoEnsamblaje = 0;
@@ -43,11 +39,11 @@ public class Ensambladora {
         return tiempoEnsamblaje;
     }
 
-    public Boolean getEstadoEnsambladora() {
+    public boolean getEstadoEnsambladora() {
         return estadoEnsambladora;
     }
 
-    public void setEstadoEnsambladora(Boolean estadoEnsambladora) {
+    public void setEstadoEnsambladora(boolean estadoEnsambladora) {
         this.estadoEnsambladora = estadoEnsambladora;
     }
 
