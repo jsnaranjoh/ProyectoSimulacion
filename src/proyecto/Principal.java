@@ -27,6 +27,8 @@ public class Principal extends javax.swing.JFrame {
         checkBoxDejarEnfriarHorno = new javax.swing.JCheckBox();
         checkBoxLimitarColaHorno = new javax.swing.JCheckBox();
         botonSimular = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        textAreaSalida = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,6 +47,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        textAreaSalida.setColumns(20);
+        textAreaSalida.setRows(5);
+        jScrollPane1.setViewportView(textAreaSalida);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -52,22 +58,26 @@ public class Principal extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelTiempoEjecucion)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tiempoEjecucion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(checkBoxDejarEnfriarHorno))
-                        .addGap(50, 50, 50)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labelNumEmsambladoras)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(numEnsambladoras, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(checkBoxLimitarColaHorno)))
-                    .addComponent(botonSimular))
-                .addContainerGap(355, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labelTiempoEjecucion)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tiempoEjecucion, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(checkBoxDejarEnfriarHorno))
+                                .addGap(50, 50, 50)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(labelNumEmsambladoras)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(numEnsambladoras, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(checkBoxLimitarColaHorno)))
+                            .addComponent(botonSimular))
+                        .addGap(0, 145, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -84,7 +94,9 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(checkBoxLimitarColaHorno))
                 .addGap(18, 18, 18)
                 .addComponent(botonSimular)
-                .addContainerGap(487, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -145,16 +157,19 @@ public class Principal extends javax.swing.JFrame {
         } else
             simulacion.ejecutarSimulacionEscenario0(enfriamiento);
         
-        simulacion.resultados();
+        String salida = simulacion.resultados();
+        textAreaSalida.setText(salida);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonSimular;
     private javax.swing.JCheckBox checkBoxDejarEnfriarHorno;
     private javax.swing.JCheckBox checkBoxLimitarColaHorno;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labelNumEmsambladoras;
     private javax.swing.JLabel labelTiempoEjecucion;
     private javax.swing.JTextField numEnsambladoras;
+    private javax.swing.JTextArea textAreaSalida;
     private javax.swing.JTextField tiempoEjecucion;
     // End of variables declaration//GEN-END:variables
 }

@@ -2,8 +2,6 @@ package proyecto;
 
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 
 /**
  *
@@ -31,8 +29,7 @@ public class Simulacion {
     private boolean conEnfriamiento;
     
     //Variables para mostrar
-    private String salida="-";
-    JTextArea salidaT=new JTextArea(10,50);
+    private String salida="";
     
     
     
@@ -75,12 +72,10 @@ public class Simulacion {
         conEnfriamiento=enfriamiento;
 
         do {
-            System.out.println("\nTiempoEjecucion: " + tiempoGeneral);
             salida+="\n"+"\nTiempoEjecucion: " + tiempoGeneral;
             //Proceso Ensambladoras
             for (int i = 0; i < listaEnsambladoras.size(); i++) {
                 ensambladoraAuxiliar = listaEnsambladoras.get(i);
-                System.out.println("ensambladora: " + ensambladoraAuxiliar.getNumeroEnsambladora() + " tiempoEnsamblaje: " + ensambladoraAuxiliar.getTiempoEnsamblaje() + " cantidadComponentesEnsamblados: " + ensambladoraAuxiliar.getCantPiezasEnsambladas());
                 salida+="\n"+"ensambladora: " + ensambladoraAuxiliar.getNumeroEnsambladora() + " tiempoEnsamblaje: " + ensambladoraAuxiliar.getTiempoEnsamblaje() + " cantidadComponentesEnsamblados: " + ensambladoraAuxiliar.getCantPiezasEnsambladas();
                 
                 //Terminó de ensamblar?
@@ -97,7 +92,6 @@ public class Simulacion {
 
             //Proceso del horno
             if (horno.getEstadoHorno() == true) {
-                System.out.println("horno cocinando: " + horno.getTiempoCoccion());
                 salida+="\nhorno cocinando: " + horno.getTiempoCoccion();
                 if (horno.getTiempoCoccion() == 0) {
                     if (conEnfriamiento == false) {
@@ -115,7 +109,6 @@ public class Simulacion {
                 }
             } else {
                 horno.aumentarTiempoInactividadHorno();
-                System.out.println("horno inactivo: " + horno.getTiempoInactividadHorno());
                 salida+="\nhorno inactivo: " + horno.getTiempoInactividadHorno();
             }
 
@@ -132,17 +125,11 @@ public class Simulacion {
         for (int i = 0; i < listaEnsambladoras.size(); i++) {
             promEnsamblaje += listaEnsambladoras.get(i).calcularTiempoPromedioEnsamblaje();
         }
-        System.out.println("\npromedioTiempoEnsamblaje: " + redondear(promEnsamblaje / listaEnsambladoras.size()));
         salida+="\npromedioTiempoEnsamblaje: " + redondear(promEnsamblaje / listaEnsambladoras.size());
-        System.out.println("promedioTiempoHorneado: " + redondear(horno.calcularTiempoPromedioHorneado()));
         salida+="\n"+"promedioTiempoHorneado: " + redondear(horno.calcularTiempoPromedioHorneado());
-        System.out.println("cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas());
         salida+="\n"+"cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas();
-        System.out.println("cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas());
-        salida+="\n"+"cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas();
-        System.out.println("tamañoCola: " + colaComponentes.cantidadEnCola());
+        salida+="\n"+"cantPiezasEnsambladas: "+totalPiezasEnsambladas;
         salida+="\n"+"tamañoCola: " + colaComponentes.cantidadEnCola();
-        System.out.println("tiempoInactivoHorno: " + horno.getTiempoInactividadHorno());
         salida+="\n"+"tiempoInactivoHorno: " + horno.getTiempoInactividadHorno();
 
     }
@@ -151,12 +138,10 @@ public class Simulacion {
         conEnfriamiento=enfriamiento;
 
         do {
-            System.out.println("\nTiempoEjecucion: " + tiempoGeneral);
             salida+="\nTiempoEjecucion: " + tiempoGeneral;
             //Proceso Ensambladoras
             for (int i = 0; i < listaEnsambladoras.size(); i++) {
                 ensambladoraAuxiliar = listaEnsambladoras.get(i);
-                System.out.println("ensambladora: " + ensambladoraAuxiliar.getNumeroEnsambladora() + " tiempoEnsamblaje: " + ensambladoraAuxiliar.getTiempoEnsamblaje() + " cantidadComponentesEnsamblados: " + ensambladoraAuxiliar.getCantPiezasEnsambladas()+" estado: "+ensambladoraAuxiliar.getEstadoEnsambladora());
                 salida+="\n"+"ensambladora: " + ensambladoraAuxiliar.getNumeroEnsambladora() + " tiempoEnsamblaje: " + ensambladoraAuxiliar.getTiempoEnsamblaje() + " cantidadComponentesEnsamblados: " + ensambladoraAuxiliar.getCantPiezasEnsambladas()+" estado: "+ensambladoraAuxiliar.getEstadoEnsambladora();
                 //Ensambladora Bloqueada?
                 if (ensambladoraAuxiliar.getEstadoEnsambladora() == false) {
@@ -177,7 +162,6 @@ public class Simulacion {
 
             //Proceso del horno
             if (horno.getEstadoHorno() == true) {
-                System.out.println("horno cocinando: " + horno.getTiempoCoccion());
                 salida+="\nhorno cocinando: " + horno.getTiempoCoccion();
                 if (horno.getTiempoCoccion() == 0) {
                     if (conEnfriamiento == false) {
@@ -188,7 +172,6 @@ public class Simulacion {
                             eventoSaleHorno1();
                         } else {
                             horno.disminuirTiempoEnfriamiento();
-                            System.out.println("horno enfriando: "+horno.getTiempoEnfriamiento());
                             salida+="\n"+"horno enfriando: "+horno.getTiempoEnfriamiento();
                         }
                     }
@@ -197,13 +180,11 @@ public class Simulacion {
                 }
             } else {
                 horno.aumentarTiempoInactividadHorno();
-                System.out.println("horno inactivo: " + horno.getTiempoInactividadHorno());
                 salida+="\n"+"horno inactivo: " + horno.getTiempoInactividadHorno();
             }
 
             //Proceso de la cola
             if (colaComponentes.esColaVacia()== false) {
-                System.out.println("en cola: " + colaComponentes.cantidadEnCola());
                 salida+="\n"+"en cola: " + colaComponentes.cantidadEnCola();
                 colaComponentes.aumentarTiempoCola();
             }
@@ -217,21 +198,13 @@ public class Simulacion {
             promEnsamblaje += listaEnsambladoras.get(i).calcularTiempoPromedioEnsamblaje();
             promInactividadEnsambladoras+= listaEnsambladoras.get(i).getTiempoInactividadEnsambladora();
         }
-        System.out.println("\npromedioTiempoEnsamblaje: " + redondear(promEnsamblaje / listaEnsambladoras.size()));
         salida+="\n"+"\npromedioTiempoEnsamblaje: " + redondear(promEnsamblaje / listaEnsambladoras.size());
-        System.out.println("promedioTiempoHorneado: " + redondear(horno.calcularTiempoPromedioHorneado()));
         salida+="\n"+"promedioTiempoHorneado: " + redondear(horno.calcularTiempoPromedioHorneado());
-        System.out.println("promedioInactividadEnsambladoras: " + redondear(promInactividadEnsambladoras / listaEnsambladoras.size()));
         salida+="\n"+"promedioInactividadEnsambladoras: " + redondear(promInactividadEnsambladoras / listaEnsambladoras.size());
-        System.out.println("cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas());
         salida+="\n"+"cantPiezasHorneadas: " + horno.getCantidadPiezasHorneadas();
-        System.out.println("cantPiezasEnsambladas: "+totalPiezasEnsambladas);
         salida+="\n"+"cantPiezasEnsambladas: "+totalPiezasEnsambladas;
-        System.out.println("cantEnsambladorasBloqueadas: "+listaEnsambladorasBloqueadas.size());
         salida+="\n"+"cantEnsambladorasBloqueadas: "+listaEnsambladorasBloqueadas.size();
-        System.out.println("tamañoCola: " + colaComponentes.cantidadEnCola());
         salida+="\n"+"tamañoCola: " + colaComponentes.cantidadEnCola();
-        System.out.println("tiempoInactivoHorno: " + horno.getTiempoInactividadHorno());
         salida+="\n"+"tiempoInactivoHorno: " + horno.getTiempoInactividadHorno();
 
     }
@@ -325,7 +298,6 @@ public class Simulacion {
             if (!listaEnsambladorasBloqueadas.isEmpty()) {
                 ensambladoraAuxiliar = listaEnsambladorasBloqueadas.get(0);
                 ensambladoraAuxiliar.cambieEstadoEnsambladora();
-                System.out.println("ensambladora Desbloqueada, estado: "+ensambladoraAuxiliar.getEstadoEnsambladora());
                 salida+="\n"+"ensambladora Desbloqueada, estado: "+ensambladoraAuxiliar.getEstadoEnsambladora();
                 ensambladoraAuxiliar.setTiempoEnsamblaje(listaTiemposEnsamblajes.get(contadorEnsamblaje));
                 componenteAuxiliar1=listaComponentesEnsambladorasBloqueadas.get(0);
@@ -333,7 +305,6 @@ public class Simulacion {
                 listaComponentesEnsambladorasBloqueadas.remove(0);
                 contadorEnsamblaje++;
                 listaEnsambladorasBloqueadas.remove(0);
-                System.out.println("sacó pieza de ensambladora bloqueada, cantEnsambladorasBloqueadas: "+listaEnsambladorasBloqueadas.size());
                 salida+="\n"+"sacó pieza de ensambladora bloqueada, cantEnsambladorasBloqueadas: "+listaEnsambladorasBloqueadas.size();
             }
             eventoEntraHorno1(componenteAuxiliar);
@@ -397,11 +368,7 @@ public class Simulacion {
         return aleatorio;
     }
     
-    public void resultados()
-    {
-        salidaT.setText(salida);
-        salidaT.setEditable(false);
-        JScrollPane scroll=new JScrollPane(salidaT);
-        JOptionPane.showMessageDialog(null,scroll);
+    public String resultados() {
+        return salida;
     }
 }
